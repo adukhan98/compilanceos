@@ -421,7 +421,7 @@ export function CustomerDetail() {
 
             <style>{`
         .customer-detail {
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
         }
 
@@ -429,7 +429,7 @@ export function CustomerDetail() {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          margin-bottom: var(--space-xl);
+          margin-bottom: var(--space-2xl);
         }
 
         .header-left {
@@ -442,9 +442,10 @@ export function CustomerDetail() {
           display: flex;
           align-items: center;
           gap: var(--space-xs);
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
           text-decoration: none;
           font-size: var(--text-sm);
+          font-weight: var(--font-medium);
           transition: color var(--transition-fast);
         }
 
@@ -455,57 +456,90 @@ export function CustomerDetail() {
         .customer-title {
           display: flex;
           align-items: center;
-          gap: var(--space-md);
+          gap: var(--space-lg);
         }
 
         .customer-avatar-lg {
-          width: 56px;
-          height: 56px;
+          width: 64px;
+          height: 64px;
           border-radius: var(--radius-xl);
           background: var(--gradient-primary);
           display: flex;
           align-items: center;
           justify-content: center;
-          font-size: var(--text-2xl);
+          font-size: var(--text-3xl);
           font-weight: var(--font-bold);
           color: white;
+          box-shadow: var(--shadow-glow);
         }
 
         .customer-title h1 {
-          font-size: var(--text-2xl);
-          margin: 0;
+          font-size: var(--text-3xl);
+          margin: 0 0 4px 0;
+          letter-spacing: -0.02em;
         }
 
         .tabs-container {
           margin-bottom: var(--space-lg);
+          border-bottom: 2px solid var(--color-bg-tertiary);
+        }
+
+        .tabs {
+          display: flex;
+          gap: var(--space-lg);
+          padding-bottom: 2px;
+          margin-bottom: -2px; /* Overlap border */
+        }
+
+        .tab {
+            padding: 1rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--color-text-tertiary);
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            transition: all var(--transition-fast);
+        }
+
+        .tab:hover {
+            color: var(--color-text-primary);
+        }
+
+        .tab.active {
+            color: var(--color-accent);
+            border-bottom-color: var(--color-accent);
         }
 
         .tab-count {
-          background: var(--color-bg-elevated);
+          background: var(--color-bg-tertiary);
+          color: var(--color-text-secondary);
           padding: 2px 8px;
           border-radius: var(--radius-full);
           font-size: var(--text-xs);
         }
 
         .tab.active .tab-count {
-          background: rgba(99, 102, 241, 0.3);
+          background: var(--color-accent-muted);
+          color: var(--color-accent);
         }
 
         .tab-content {
-          background: var(--color-bg-secondary);
-          border: 1px solid var(--color-glass-border);
-          border-radius: var(--radius-xl);
-          padding: var(--space-lg);
+          min-height: 400px;
         }
 
         .tab-section {
-          min-height: 300px;
+          animation: fadeIn var(--transition-fast);
         }
 
         .section-actions {
           display: flex;
           justify-content: flex-end;
-          margin-bottom: var(--space-md);
+          margin-bottom: var(--space-lg);
         }
 
         .empty-state-small {
@@ -515,6 +549,9 @@ export function CustomerDetail() {
           justify-content: center;
           padding: var(--space-3xl);
           text-align: center;
+          background: white;
+          border-radius: var(--radius-xl);
+          box-shadow: var(--shadow-sm);
         }
 
         .empty-state-small p {
@@ -523,59 +560,62 @@ export function CustomerDetail() {
         }
 
         .items-list {
-          display: flex;
-          flex-direction: column;
-          gap: var(--space-sm);
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: var(--space-lg);
         }
 
         .item-card-wrapper {
-          display: flex;
-          align-items: center;
-          gap: var(--space-sm);
-        }
-
-        .item-card-wrapper .item-card {
-          flex: 1;
+          position: relative;
         }
 
         .item-card {
           display: flex;
-          align-items: center;
+          flex-direction: column;
           gap: var(--space-md);
-          padding: var(--space-md);
-          background: var(--color-glass);
-          border: 1px solid var(--color-glass-border);
-          border-radius: var(--radius-lg);
+          padding: var(--space-lg);
+          background: white;
+          border-radius: var(--radius-xl);
+          box-shadow: var(--shadow-sm);
           text-decoration: none;
-          transition: all var(--transition-fast);
+          transition: all var(--transition-base);
+          height: 100%;
+          border: none;
         }
 
         .item-card:hover {
-          background: var(--color-glass-hover);
-          border-color: rgba(255, 255, 255, 0.12);
+          transform: translateY(-4px);
+          box-shadow: var(--shadow-lg);
+        }
+
+        .item-checkbox {
+            margin-bottom: var(--space-sm);
         }
 
         .item-checkbox input {
-          width: 18px;
-          height: 18px;
+          width: 20px;
+          height: 20px;
           cursor: pointer;
+          accent-color: var(--color-accent);
         }
 
         .item-main {
           flex: 1;
-          min-width: 0;
+          display: flex;
+          flex-direction: column;
         }
 
         .item-main h4 {
-          font-size: var(--text-sm);
-          font-weight: var(--font-medium);
+          font-size: var(--text-base);
+          font-weight: var(--font-semibold);
           color: var(--color-text-primary);
-          margin: 0 0 4px 0;
+          margin: 0 0 var(--space-sm) 0;
+          line-height: var(--leading-tight);
         }
 
         .text-line-through {
           text-decoration: line-through;
-          color: var(--color-text-tertiary);
+          color: var(--color-text-muted) !important;
         }
 
         .item-meta {
@@ -584,16 +624,43 @@ export function CustomerDetail() {
           gap: var(--space-sm);
           font-size: var(--text-xs);
           color: var(--color-text-tertiary);
+          margin-top: auto;
         }
 
         .item-progress {
-          display: flex;
-          align-items: center;
-          gap: var(--space-sm);
+          margin-top: var(--space-md);
+        }
+        
+        .item-progress .progress-bar {
+            background: var(--color-bg-tertiary);
+            height: 6px;
         }
 
         .item-due {
-          margin-left: auto;
+          margin-top: var(--space-md);
+        }
+        
+        /* Floating delete button on hover or separate action area? */
+        /* Let's make the delete button visible but subtle in the card */
+        .item-card-wrapper .btn-ghost {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+            background: white;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .item-card-wrapper:hover .btn-ghost {
+            opacity: 1;
+        }
+        
+        /* Fallback for touch / non-hover */
+        @media (hover: none) {
+            .item-card-wrapper .btn-ghost {
+                opacity: 1;
+            }
         }
       `}</style>
         </div>

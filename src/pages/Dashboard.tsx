@@ -204,25 +204,31 @@ export function Dashboard() {
 
       <style>{`
         .dashboard {
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
         }
 
         .dashboard-header {
           display: flex;
           justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: var(--space-xl);
+          align-items: flex-end;
+          margin-bottom: var(--space-2xl);
+        }
+
+        .header-left h1 {
+            font-size: var(--text-4xl);
+            font-weight: var(--font-bold);
+            margin-bottom: var(--space-xs);
         }
 
         .stats-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: var(--space-md);
-          margin-bottom: var(--space-xl);
+          gap: var(--space-lg);
+          margin-bottom: var(--space-2xl);
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1200px) {
           .stats-grid {
             grid-template-columns: repeat(2, 1fr);
           }
@@ -236,9 +242,18 @@ export function Dashboard() {
 
         .stat-card {
           display: flex;
-          align-items: center;
-          gap: var(--space-md);
+          align-items: flex-start;
+          justify-content: space-between;
           padding: var(--space-lg);
+          background: white;
+          border-radius: var(--radius-xl);
+          box-shadow: var(--shadow-sm);
+          transition: all var(--transition-base);
+        }
+
+        .stat-card:hover {
+          transform: translateY(-4px);
+          box-shadow: var(--shadow-lg);
         }
 
         .stat-icon {
@@ -247,7 +262,7 @@ export function Dashboard() {
           justify-content: center;
           width: 48px;
           height: 48px;
-          border-radius: var(--radius-lg);
+          border-radius: var(--radius-full);
         }
 
         .stat-content {
@@ -256,50 +271,51 @@ export function Dashboard() {
         }
 
         .stat-value {
-          font-size: var(--text-2xl);
+          font-size: var(--text-3xl);
           font-weight: var(--font-bold);
           color: var(--color-text-primary);
+          line-height: 1.2;
         }
 
         .stat-label {
           font-size: var(--text-sm);
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
+          margin-top: 4px;
         }
 
         .dashboard-grid {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: var(--space-lg);
+          grid-template-columns: 1.5fr 1fr;
+          gap: var(--space-xl);
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1024px) {
           .dashboard-grid {
             grid-template-columns: 1fr;
           }
         }
 
         .dashboard-section {
-          background: var(--color-bg-secondary);
-          border: 1px solid var(--color-glass-border);
+          background: white;
           border-radius: var(--radius-xl);
+          box-shadow: var(--shadow-sm);
           overflow: hidden;
+          padding: var(--space-lg);
         }
 
         .section-header {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: var(--space-lg);
-          border-bottom: 1px solid var(--color-glass-border);
+          margin-bottom: var(--space-lg);
         }
 
         .section-header h2 {
-          font-size: var(--text-base);
-          font-weight: var(--font-semibold);
+          font-size: var(--text-xl);
+          font-weight: var(--font-bold);
         }
 
         .section-content {
-          padding: var(--space-md);
           min-height: 200px;
         }
 
@@ -308,14 +324,11 @@ export function Dashboard() {
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          padding: var(--space-xl);
+          padding: var(--space-2xl);
           text-align: center;
           color: var(--color-text-tertiary);
-        }
-
-        .empty-state-small p {
-          margin-top: var(--space-sm);
-          font-size: var(--text-sm);
+          background: var(--color-bg-primary);
+          border-radius: var(--radius-lg);
         }
 
         .deadline-list,
@@ -323,27 +336,32 @@ export function Dashboard() {
           list-style: none;
           display: flex;
           flex-direction: column;
-          gap: var(--space-xs);
+          gap: var(--space-md);
         }
 
         .deadline-item {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: var(--space-sm) var(--space-md);
-          background: var(--color-glass);
-          border-radius: var(--radius-md);
+          padding: var(--space-md);
+          background: var(--color-bg-primary);
+          border-radius: var(--radius-lg);
+          transition: all var(--transition-fast);
+        }
+
+        .deadline-item:hover {
+            transform: scale(1.01);
         }
 
         .deadline-info {
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          gap: 4px;
         }
 
         .deadline-title {
           font-size: var(--text-sm);
-          font-weight: var(--font-medium);
+          font-weight: var(--font-semibold);
           color: var(--color-text-primary);
         }
 
@@ -356,26 +374,27 @@ export function Dashboard() {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          padding: var(--space-sm) var(--space-md);
-          background: var(--color-glass);
-          border-radius: var(--radius-md);
+          padding: var(--space-md);
+          background: var(--color-bg-primary);
+          border-radius: var(--radius-lg);
           text-decoration: none;
           transition: all var(--transition-fast);
         }
 
         .questionnaire-item a:hover {
-          background: var(--color-glass-hover);
+          background: var(--color-bg-hover);
+          transform: scale(1.01);
         }
 
         .q-info {
           display: flex;
           flex-direction: column;
-          gap: 2px;
+          gap: 4px;
         }
 
         .q-name {
           font-size: var(--text-sm);
-          font-weight: var(--font-medium);
+          font-weight: var(--font-semibold);
           color: var(--color-text-primary);
         }
 
@@ -388,19 +407,12 @@ export function Dashboard() {
           display: flex;
           align-items: center;
           gap: var(--space-sm);
-          width: 120px;
+          width: 140px;
         }
 
         .q-progress .progress-bar {
-          flex: 1;
-        }
-
-        .q-progress-text {
-          font-size: var(--text-xs);
-          font-weight: var(--font-medium);
-          color: var(--color-text-tertiary);
-          min-width: 32px;
-          text-align: right;
+          height: 8px;
+          background: #e5e5e5;
         }
       `}</style>
     </div>

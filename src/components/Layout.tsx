@@ -21,19 +21,21 @@ export function Layout() {
         .app-layout {
           display: flex;
           min-height: 100vh;
+          background-color: var(--color-bg-primary);
         }
 
         .main-content {
           flex: 1;
           margin-left: var(--sidebar-width);
-          padding: var(--space-xl);
+          padding: var(--space-2xl); /* More generous padding */
           min-height: 100vh;
           transition: margin-left var(--transition-base);
         }
 
         @media (max-width: 768px) {
           .main-content {
-            margin-left: 72px;
+            margin-left: 80px; /* Match collapsed sidebar width */
+            padding: var(--space-lg);
           }
         }
       `}</style>

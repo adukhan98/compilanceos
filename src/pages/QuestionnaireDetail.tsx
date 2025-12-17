@@ -313,12 +313,15 @@ export function QuestionnaireDetail() {
 
       <style>{`
         .questionnaire-detail {
-          max-width: 900px;
+          max-width: 1000px; /* Wider layout */
           margin: 0 auto;
         }
 
         .detail-header {
           margin-bottom: var(--space-xl);
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
         }
 
         .header-left {
@@ -331,9 +334,10 @@ export function QuestionnaireDetail() {
           display: flex;
           align-items: center;
           gap: var(--space-xs);
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
           text-decoration: none;
           font-size: var(--text-sm);
+          font-weight: var(--font-medium);
           transition: color var(--transition-fast);
         }
 
@@ -341,24 +345,34 @@ export function QuestionnaireDetail() {
           color: var(--color-text-primary);
         }
 
+        .header-left h1 {
+            font-size: var(--text-3xl);
+            margin: var(--space-xs) 0;
+            line-height: 1.2;
+        }
+
         .due-date {
           display: flex;
           align-items: center;
           gap: var(--space-xs);
-          color: var(--color-text-secondary);
+          color: var(--color-text-tertiary);
           font-size: var(--text-sm);
+          font-weight: var(--font-medium);
         }
 
         .progress-section {
-          padding: var(--space-lg);
+          padding: var(--space-xl);
           margin-bottom: var(--space-xl);
+          background: white;
+          border-radius: var(--radius-xl);
+          box-shadow: var(--shadow-md);
         }
 
         .progress-header {
           display: flex;
           justify-content: space-between;
-          align-items: center;
-          margin-bottom: var(--space-md);
+          align-items: flex-end;
+          margin-bottom: var(--space-lg);
         }
 
         .progress-stats {
@@ -368,19 +382,21 @@ export function QuestionnaireDetail() {
         }
 
         .progress-percentage {
-          font-size: var(--text-3xl);
+          font-size: var(--text-4xl);
           font-weight: var(--font-bold);
           color: var(--color-accent);
+          letter-spacing: -1px;
         }
 
         .progress-label {
-          color: var(--color-text-tertiary);
+          color: var(--color-text-secondary);
           font-size: var(--text-sm);
+          font-weight: var(--font-medium);
         }
 
         .progress-counts {
           display: flex;
-          gap: var(--space-xl);
+          gap: var(--space-2xl);
         }
 
         .count-item {
@@ -391,18 +407,23 @@ export function QuestionnaireDetail() {
 
         .count-value {
           font-size: var(--text-xl);
-          font-weight: var(--font-semibold);
+          font-weight: var(--font-bold);
+          color: var(--color-text-primary);
         }
 
         .count-label {
           font-size: var(--text-xs);
           color: var(--color-text-tertiary);
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          margin-top: 4px;
         }
 
         .filters-section {
           display: flex;
-          gap: var(--space-md);
+          gap: var(--space-lg);
           margin-bottom: var(--space-lg);
+          align-items: center;
         }
 
         .search-bar {
@@ -412,50 +433,79 @@ export function QuestionnaireDetail() {
 
         .search-icon {
           position: absolute;
-          left: var(--space-md);
+          left: 1rem;
           top: 50%;
           transform: translateY(-50%);
           color: var(--color-text-muted);
         }
 
         .search-input {
-          padding-left: 44px;
+          padding-left: 3rem;
+          background: white;
+          border-radius: var(--radius-full);
+          box-shadow: var(--shadow-sm);
+          height: 48px;
         }
 
         .filter-buttons {
           display: flex;
-          gap: var(--space-xs);
+          gap: var(--space-sm);
+          background: white;
+          padding: 4px;
+          border-radius: var(--radius-full);
+          box-shadow: var(--shadow-sm);
+        }
+
+        .filter-buttons .btn {
+            border-radius: var(--radius-full);
+            padding: 0.5rem 1rem;
+        }
+        
+        .filter-buttons .btn-secondary {
+            box-shadow: none;
+            background: transparent;
+        }
+        
+        .filter-buttons .btn-secondary:hover {
+            background: var(--color-bg-tertiary);
         }
 
         .questions-list {
           display: flex;
           flex-direction: column;
-          gap: var(--space-sm);
+          gap: var(--space-md);
         }
 
         .question-card {
-          background: var(--color-bg-secondary);
-          border: 1px solid var(--color-glass-border);
+          background: white;
+          border: none;
+          box-shadow: var(--shadow-sm);
           border-radius: var(--radius-lg);
           overflow: hidden;
-          transition: all var(--transition-fast);
+          transition: all var(--transition-base);
+        }
+        
+        .question-card:hover {
+            box-shadow: var(--shadow-md);
         }
 
         .question-card.expanded {
-          border-color: var(--color-accent);
+          box-shadow: var(--shadow-lg);
+          transform: scale(1.005);
+          z-index: 10;
         }
 
         .question-header {
           display: flex;
           align-items: flex-start;
-          gap: var(--space-md);
-          padding: var(--space-md);
+          gap: var(--space-lg);
+          padding: var(--space-lg);
           cursor: pointer;
           transition: background var(--transition-fast);
         }
 
         .question-header:hover {
-          background: var(--color-glass);
+          background: var(--color-bg-hover);
         }
 
         .question-number {
@@ -469,45 +519,58 @@ export function QuestionnaireDetail() {
         }
 
         .question-text {
-          font-size: var(--text-sm);
+          font-size: var(--text-base);
+          font-weight: var(--font-medium);
           color: var(--color-text-primary);
           margin: 0 0 var(--space-sm) 0;
-          line-height: var(--leading-relaxed);
+          line-height: var(--leading-normal);
         }
 
         .question-meta {
           display: flex;
           flex-wrap: wrap;
-          gap: var(--space-sm);
+          gap: var(--space-md);
           align-items: center;
         }
 
         .meta-item {
           display: flex;
           align-items: center;
-          gap: var(--space-xs);
+          gap: 6px;
           font-size: var(--text-xs);
           color: var(--color-text-tertiary);
+          font-weight: var(--font-medium);
         }
 
         .expand-btn {
-          background: transparent;
+          background: var(--color-bg-tertiary);
           border: none;
-          color: var(--color-text-tertiary);
+          border-radius: var(--radius-full);
+          color: var(--color-text-secondary);
           cursor: pointer;
-          padding: var(--space-xs);
+          padding: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all var(--transition-fast);
+        }
+        
+        .expand-btn:hover {
+            background: var(--color-accent-muted);
+            color: var(--color-accent);
         }
 
         .question-body {
-          padding: 0 var(--space-md) var(--space-md);
-          border-top: 1px solid var(--color-glass-border);
+          padding: 0 var(--space-xl) var(--space-xl);
+          border-top: 1px solid var(--color-bg-tertiary);
         }
 
         .suggestions-panel {
-          background: var(--color-warning-muted);
+          background: #fffbeb; /* Warning-50 */
           border-radius: var(--radius-md);
           padding: var(--space-md);
-          margin-top: var(--space-md);
+          margin-top: var(--space-lg);
+          border: 1px solid #fcd34d; /* Warning-300 */
         }
 
         .suggestions-header {
@@ -515,8 +578,8 @@ export function QuestionnaireDetail() {
           align-items: center;
           gap: var(--space-sm);
           font-size: var(--text-sm);
-          font-weight: var(--font-medium);
-          color: var(--color-warning);
+          font-weight: var(--font-bold);
+          color: #b45309; /* Warning-700 */
           margin-bottom: var(--space-sm);
         }
 
@@ -527,15 +590,17 @@ export function QuestionnaireDetail() {
         }
 
         .suggestion-item {
-          background: var(--color-bg-secondary);
+          background: white;
           border-radius: var(--radius-md);
-          padding: var(--space-sm);
+          padding: var(--space-md);
+          box-shadow: var(--shadow-sm);
         }
 
         .suggestion-text {
           font-size: var(--text-sm);
-          color: var(--color-text-secondary);
+          color: var(--color-text-primary);
           margin: 0 0 var(--space-sm) 0;
+          line-height: 1.5;
         }
 
         .suggestion-meta {
@@ -545,20 +610,36 @@ export function QuestionnaireDetail() {
         }
 
         .answer-section {
-          margin-top: var(--space-md);
+          margin-top: var(--space-lg);
         }
 
         .question-actions {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-top: var(--space-md);
+          margin-top: var(--space-lg);
           gap: var(--space-md);
+          padding-top: var(--space-md);
+          border-top: 1px solid var(--color-bg-tertiary);
         }
 
         .status-buttons {
           display: flex;
           gap: var(--space-sm);
+        }
+        
+        .select {
+            padding: 0.5rem 2.5rem 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-bg-tertiary);
+            background-color: var(--color-bg-tertiary);
+            font-size: var(--text-sm);
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
         }
 
         .save-buttons {
@@ -569,10 +650,11 @@ export function QuestionnaireDetail() {
         @media (max-width: 640px) {
           .filters-section {
             flex-direction: column;
+            align-items: stretch;
           }
 
           .filter-buttons {
-            flex-wrap: wrap;
+            justify-content: center;
           }
 
           .progress-counts {
